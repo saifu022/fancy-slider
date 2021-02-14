@@ -47,7 +47,7 @@ const dataValidation = (time) => {
     return time;
   }
   else{
-    alert('Duration set to 1s because the duration input is empty, too low or invalid. ')
+    alert('Interval set to 1s because the duration input is empty, too low or invalid. ')
     return 1000;
   }
 }
