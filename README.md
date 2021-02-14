@@ -2,4 +2,4 @@
 live site: https://saifu022.github.io/fancy-slider/.
 
 features added: A) shows number of selected images beside the duration input box (on right side)
-B) spinner: spinning before the data is fetched from server
+B) spinner added that is shown under the search area on time between the search initiate and showing the results

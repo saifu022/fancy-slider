@@ -5,6 +5,7 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 const selectedImage = document.getElementById('imageSelected');
+const spinner = document.getElementById('spinner-loading');
 // selected image 
 let sliders = [];
 
@@ -18,6 +19,7 @@ const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 const showImages = (images) => {
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
+  toggleSpinner();
   // show gallery title
   galleryHeader.style.display = 'flex';
   images.forEach(image => {
@@ -26,10 +28,14 @@ const showImages = (images) => {
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
+}
 
+const toggleSpinner = () =>{
+  spinner.classList.toggle('d-none');
 }
 
 const getImages = (query) => {
+  toggleSpinner();
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
@@ -41,10 +47,12 @@ const dataValidation = (time) => {
     return time;
   }
   else{
-    alert('Duration set to 1s because the duration input is too low or invalid. ')
+    alert('Duration set to 1s because the duration input is empty, too low or invalid. ')
     return 1000;
   }
 }
+
+
 
 let slideIndex = 0;
 const selectItem = (event, img) => {
@@ -76,12 +84,12 @@ const createSlider = () => {
   <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
   <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
   `;
-
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = dataValidation(document.getElementById('duration').value);
+
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
